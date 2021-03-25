@@ -1,0 +1,19 @@
+overwrite: true
+
+generates:
+  # Schema for general autocomplete
+  ./graphql.schema.json:
+    schema: "https://withalpaca.com/api/graphql"
+    plugins:
+      - "introspection"
+
+  src/graphql/types.ts:
+    schema: "https://withalpaca.com/api/graphql"
+    documents: "src/graphql/**/*.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "fragment-matcher"
+      - "typescript-react-apollo"
+    config:
+      withRefetchQuery: true
