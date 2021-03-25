@@ -6,8 +6,6 @@ query PlaceOpeningHours($id: ID!, $from: String) {
     id
     __typename
     hours {
-      osmTag
-
       # Access the next window that the place is open. Supports selecting a
       # series of Open/Closed hours and can be used to let users know when
       # a venue will be open/closed next.
@@ -18,12 +16,11 @@ query PlaceOpeningHours($id: ID!, $from: String) {
           # Times from/to as ISO-8601 string, or formatted using the Unicode
           # Technical Standard #35 Date Field Symbols
           from
+          to
+          # Date Formatting for displaying dates and relative times
           fromToday: from(format: "h:mm a")
           fromNextDay: from(format: "EEE, MMM d, h:mm a")
-          to
           toTime: to(format: "h:mm a")
-          # Create a relative expression (in X minutes/hours etc) based on a
-          # a supplied relative to ISO 8601, or null (for now)
           relative: from(relativeTo: $from)
           # Status Open/Closed
           status
