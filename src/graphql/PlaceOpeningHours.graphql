@@ -3,21 +3,36 @@
 
 query PlaceOpeningHours($id: ID!, $from: String) {
   place(id: $id) {
+    # Cache identifiers
     id
     __typename
+    # Opening Hours
     hours {
-      # Access the next window that the place is open. Supports selecting a
-      # series of Open/Closed hours and can be used to let users know when
-      # a venue will be open/closed next.
+      # Create a series of opening/close for the place across the next week (7 days)
+      forDays(from: $from) {
+        # The date representation of the day
+        date(format: "EEE, MMM d")
+        # The from-to statuses
+        intervals(status: Open) {
+          from(format: "h:mm a")
+          to(format: "h:mm a")
+          status
+          comment
+        }
+        # Any public holidays on the day
+        publicHolidays
+      }
+
+      # More complex open/closed in X minutes representation
+      # Series of Open/Closed hours from the supplied from argument
       intervals(first: 2, from: $from) {
-        # First node is the current state, second node is the upcoming change
-        # of status.
+        # First is the current status at the 'from' (now)
+        # Second is the upcoming status (soon)
         nodes {
-          # Times from/to as ISO-8601 string, or formatted using the Unicode
-          # Technical Standard #35 Date Field Symbols
+          # Actual date ISO-8601 values with timezone
           from
           to
-          # Date Formatting for displaying dates and relative times
+          # GraphQL date time formatting to assist presentation
           fromToday: from(format: "h:mm a")
           fromNextDay: from(format: "EEE, MMM d, h:mm a")
           toTime: to(format: "h:mm a")
@@ -26,6 +41,7 @@ query PlaceOpeningHours($id: ID!, $from: String) {
           status
           # Any comments attached to the opening hours
           comment
+          # Any public holidays in the place that could affect hours
           publicHolidays {
             name
           }

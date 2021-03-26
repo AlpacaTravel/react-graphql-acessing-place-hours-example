@@ -7,7 +7,7 @@ generates:
     plugins:
       - "introspection"
 
-  src/graphql/types.ts:
+  src/graphql/index.ts:
     schema: "https://withalpaca.com/api/graphql"
     documents: "src/graphql/**/*.graphql"
     plugins:
