@@ -4,6 +4,9 @@ The example React application calls upon the GraphQL service for information
 about opening hours for a place using the
 [Alpaca Travel GraphQL service](https://github.com/AlpacaTravel/graphql-docs).
 
+- [Demo](https://codesandbox.io/s/alpaca-travel-graphql-opening-hours-cggl9?file=/src/opening-hours/opening-hours.tsx)
+- [Documentation](https://github.com/AlpacaTravel/graphql-docs/tree/develop/topics/places/Accessing%20Hours)
+
 This is provided to demonstrate some of the considerations that you can have in
 regards to opening hours for places, such as:
 
