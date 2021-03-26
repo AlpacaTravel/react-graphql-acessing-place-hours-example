@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import * as graphql from "../graphql/types";
+import * as graphql from "../graphql";
 
 /**
  * Crude creation of the label representations Examples of values:
